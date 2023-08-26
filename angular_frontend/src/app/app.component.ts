@@ -11,7 +11,7 @@ export class AppComponent {
   public games?: GamePredictionDTO[];
 
   constructor(http: HttpClient) {
-    http.get<GamePredictionDTO[]>('http://localhost:5256/predictions/games/get').subscribe(result => {
+    http.get<GamePredictionDTO[]>('https://qwerhnatkiv.bsite.net/predictions/games/get').subscribe(result => {
       this.games = result.sort((n1, n2) => {
         if (n1.weekNumber > n2.weekNumber) {
           return 1;

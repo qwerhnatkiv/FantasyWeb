@@ -1,6 +1,6 @@
 const PROXY_CONFIG = {
   "/api": {
-    "target": "http://localhost:5256",
+    "target": "https://qwerhnatkiv.bsite.net/",
     "secure": false
   }
 }

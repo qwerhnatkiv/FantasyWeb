@@ -15,7 +15,7 @@ namespace FantasyWeb.DataAccess
 
         public virtual DbSet<DGame> DGames { get; set; }
 
-        public virtual DbSet<FGameOdd> FGameOdds { get; set; }
+        public virtual DbSet<FGame> FGameOdds { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

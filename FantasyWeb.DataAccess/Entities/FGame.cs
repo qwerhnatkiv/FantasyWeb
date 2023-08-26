@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FantasyWeb.DataAccess.Entities
 {
-    [Table("f_game_odds", Schema = Constants.Database.CurrentSchema)]
-    public class FGameOdd
+    [Table("f_games", Schema = Constants.Database.CurrentSchema)]
+    public class FGame
     {
         [Key]
         [Column("id")]
@@ -34,5 +34,17 @@ namespace FantasyWeb.DataAccess.Entities
 
         [ForeignKey(nameof(GameId))]
         public DGame DGame { get; set; } = null!;
+
+        [Column("id_source")]
+        public float? SourceId { get; set; }
+
+        [Column("predicted_gf_home_nt")]
+        public float? PredictedGfHomeNT { get; set; }
+
+        [Column("predicted_gf_away_nt")]
+        public float? PredictedGfAwayNT { get; set; }
+
+        [Column("all_score_predicts", TypeName = "jsonb")]
+        public string? AllScorePredicts { get; set; }
     }
 }

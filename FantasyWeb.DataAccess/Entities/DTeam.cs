@@ -25,5 +25,8 @@ namespace FantasyWeb.DataAccess.Entities
 
         [Column("acronym_team_five_thirty_eight")]
         public string? AcronymTeamFiveThirtyEight { get; set; }
+
+        [Column("name_team_checkbestodds")]
+        public string? NameTeamCheckBestOdds { get; set; }
     }
 }

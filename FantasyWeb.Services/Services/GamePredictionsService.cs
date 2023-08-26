@@ -7,9 +7,9 @@ namespace FantasyWeb.Services.Services
 {
     public class GamePredictionsService : IGamePredictionsService
     {
-        private readonly IRepository<FGameOdd> repository;
+        private readonly IRepository<FGame> repository;
 
-        public GamePredictionsService(IRepository<FGameOdd> repository)
+        public GamePredictionsService(IRepository<FGame> repository)
         {
             this.repository = repository;
         }
@@ -19,7 +19,7 @@ namespace FantasyWeb.Services.Services
             return (await repository.SelectAllAsync(x => true, 
                                                     x => x.DGame, 
                                                     x=> x.DGame.HomeTeam, 
-                                                    x => x.DGame.AwayTeam)).Select(x => new GamePredictionDTO()
+                                                    x => x.DGame.AwayTeam)).Where(x => x.DGame.WeekNumber > 0).Select(x => new GamePredictionDTO()
             {
                 HomeTeamAcronym = x.DGame.HomeTeam.AcronymTeamWolski,
                 HomeTeamName = x.DGame.HomeTeam.NameTeam,
