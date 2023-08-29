@@ -14,20 +14,17 @@ namespace webapi.Extensions
             builder.Services.AddTransient<IGamePredictionsService, GamePredictionsService>();
             builder.Services.AddTransient<IDictionaryItemsService, DictionaryItemsService>();
 
-            if (builder.Environment.IsDevelopment())
+            builder.Services.AddCors(options =>
             {
-                builder.Services.AddCors(options =>
-                {
 
-                    options.AddDefaultPolicy(
-                        policy =>
-                        {
-                            policy.AllowAnyOrigin()
-                                .AllowAnyHeader()
-                                .AllowAnyMethod();
-                        });
-                });
-            }
+                options.AddDefaultPolicy(
+                    policy =>
+                    {
+                        policy.AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
 
             return builder;
         }
