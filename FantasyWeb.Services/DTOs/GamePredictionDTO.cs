@@ -11,5 +11,8 @@
         public float AwayTeamWinChance { get; set; }
         public float DrawChance { get; set; }
         public int WeekNumber { get; set; }
+
+        public int HomeTeamId { get; set; }
+        public int AwayTeamId { get; set; }
     }
 }

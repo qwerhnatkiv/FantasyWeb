@@ -11,16 +11,16 @@ namespace FantasyWeb.Services.Services
 {
     public class DictionaryItemsService: IDictionaryItemsService
     {
-        private readonly IRepository<DTeam> dTeamRepository;
+        //private readonly IRepository<DTeam> dTeamRepository;
 
-        public DictionaryItemsService(IRepository<DTeam> dTeamRepository) 
+        public DictionaryItemsService()//IRepository<DTeam> dTeamRepository) 
         {
-            this.dTeamRepository = dTeamRepository;
+            //this.dTeamRepository = dTeamRepository;
         }
 
         public async Task<IEnumerable<DTeam>> GetAllTeamsAsync() 
         {
-            return await dTeamRepository.SelectAllAsync();
+            return new List<DTeam>() { };// await dTeamRepository.SelectAllAsync();
         }
     }
 }

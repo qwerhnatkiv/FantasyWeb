@@ -53,5 +53,7 @@ namespace FantasyWeb.DataAccess.Entities
         public DTeam AwayTeam { get; set; } = null!;
 
         public ICollection<FGame> FGameOdds { get; } = new List<FGame>();
+
+        public ICollection<FTeamNST> FTeamsNST { get; } = new List<FTeamNST>();
     }
 }

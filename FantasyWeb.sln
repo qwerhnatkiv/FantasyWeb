@@ -3,15 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "angularapp", "angular_frontend\angularapp.esproj", "{20E493F0-7E7D-4C26-8574-38866A5CBEE5}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "webapi", "webapi\webapi.csproj", "{BB8EB417-9402-4BA1-8F8A-DC4BCFFE679F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FantasyWeb.DataAccess", "FantasyWeb.DataAccess\FantasyWeb.DataAccess.csproj", "{A8B06351-4F94-4042-B1D8-918F0C44A3BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FantasyWeb.DataAccess", "FantasyWeb.DataAccess\FantasyWeb.DataAccess.csproj", "{A8B06351-4F94-4042-B1D8-918F0C44A3BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FantasyWeb.Common", "FantasyWeb.Common\FantasyWeb.Common.csproj", "{68567859-239E-424C-8F2F-EDD5E7E1B817}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FantasyWeb.Common", "FantasyWeb.Common\FantasyWeb.Common.csproj", "{68567859-239E-424C-8F2F-EDD5E7E1B817}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FantasyWeb.Services", "FantasyWeb.Services\FantasyWeb.Services.csproj", "{40BAABC4-D63F-4BD3-A893-665E3953B1CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FantasyWeb.Services", "FantasyWeb.Services\FantasyWeb.Services.csproj", "{40BAABC4-D63F-4BD3-A893-665E3953B1CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,12 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{20E493F0-7E7D-4C26-8574-38866A5CBEE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{20E493F0-7E7D-4C26-8574-38866A5CBEE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{20E493F0-7E7D-4C26-8574-38866A5CBEE5}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{20E493F0-7E7D-4C26-8574-38866A5CBEE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{20E493F0-7E7D-4C26-8574-38866A5CBEE5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{20E493F0-7E7D-4C26-8574-38866A5CBEE5}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{BB8EB417-9402-4BA1-8F8A-DC4BCFFE679F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BB8EB417-9402-4BA1-8F8A-DC4BCFFE679F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB8EB417-9402-4BA1-8F8A-DC4BCFFE679F}.Release|Any CPU.ActiveCfg = Release|Any CPU
