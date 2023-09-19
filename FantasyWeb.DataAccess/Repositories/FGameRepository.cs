@@ -26,7 +26,7 @@ namespace FantasyWeb.DataAccess.Repositories
                 .GetValueWithInclude<FGame>(x => x.DGame,
                                             x => x.DGame.HomeTeam,
                                             x => x.DGame.AwayTeam)
-                .Where(x => x.DGame.WeekNumber > 0 && x.DGame.SeasonId == seasonID && x.DGame.GameDate.Day >= DateTime.Today.Day)
+                .Where(x => x.DGame.WeekNumber > 0 && x.DGame.SeasonId == seasonID && x.DGame.GameDate >= DateTime.Today)
                 .ToListAsync();
         }
     }
