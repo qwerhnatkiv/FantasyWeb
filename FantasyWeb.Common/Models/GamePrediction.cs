@@ -1,6 +1,6 @@
-﻿namespace FantasyWeb.Services.DTOs
+﻿namespace FantasyWeb.Common.Models
 {
-    public class GamePredictionDTO
+    public class GamePrediction
     {
         public string HomeTeamName { get; set; }
         public string HomeTeamAcronym { get; set; }

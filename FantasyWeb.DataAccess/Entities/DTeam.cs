@@ -28,5 +28,7 @@ namespace FantasyWeb.DataAccess.Entities
 
         [Column("name_team_checkbestodds")]
         public string? NameTeamCheckBestOdds { get; set; }
+
+        public ICollection<DPlayer> Players { get; } = new List<DPlayer>();
     }
 }

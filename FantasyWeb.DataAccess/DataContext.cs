@@ -21,6 +21,12 @@ namespace FantasyWeb.DataAccess
 
         public virtual DbSet<FPlayerNST> FPlayersNST { get; set; }
 
+        public virtual DbSet<DPlayer> DPlayers { get; set; }
+
+        public virtual DbSet<DMPlayerSeasonPreds> DMPlayerSeasonPreds { get; set; }
+
+        public virtual DbSet<DPosition> DPositions { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -35,6 +41,12 @@ namespace FantasyWeb.DataAccess
                 .HasMany(e => e.FTeamsNST)
                 .WithOne(e => e.DGame)
                 .HasForeignKey(e => e.GameID)
+                .IsRequired();
+
+            modelBuilder.Entity<DTeam>()
+                .HasMany(e => e.Players)
+                .WithOne(e => e.DTeam)
+                .HasForeignKey(e => e.TeamID)
                 .IsRequired();
         }
     }

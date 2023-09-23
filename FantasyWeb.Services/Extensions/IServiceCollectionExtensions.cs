@@ -11,8 +11,9 @@ namespace FantasyWeb.Services.Extensions
         {
             return services.AddScoped<DbContext, DataContext>()
                            .AddDbContext<DataContext>(opt => opt.UseNpgsql(connectionString))
-                           .AddScoped<IFGameRepository, FGameRepository>()
-                           .AddScoped< IFNstRepository, FNstRepository>();
+                           .AddScoped<IFGameRepository, FGameRepository>(x => new FGameRepository(connectionString))
+                           .AddScoped<IFNstRepository, FNstRepository>(x => new FNstRepository(connectionString))
+                           .AddScoped<IPlayersStatsRepository, PlayerStatsRepository>(x => new PlayerStatsRepository(connectionString));
         }
     }
 }
