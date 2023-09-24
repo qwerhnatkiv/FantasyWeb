@@ -55,6 +55,15 @@ namespace FantasyWeb.DataAccess.Repositories
                             INNER JOIN nhl2324.d_games AS GAME ON TG.id_game = GAME.id
                             LEFT JOIN nhl2324.f_players_nst AS NST_PLAYER ON PLAYER.id = NST_PLAYER.id_player AND GAME.id = NST_PLAYER.id_game
                             WHERE GAME.game_date < @dateTime
+                        ),
+                            PPRankings AS (
+                            SELECT
+                                id_team,
+                                id_player,
+                                avg_pp_toi,
+                                PP_player_rank,
+                                PP_brigade
+                            FROM nhl2324.f_pp_brigades(@idSeason, @formGamesCount)
                         )
                         SELECT 
                             NST_PLAYER.id_player AS ""PlayerID"", 
@@ -72,9 +81,9 @@ namespace FantasyWeb.DataAccess.Repositories
                             SUM(COALESCE(NST_PLAYER.icF, 0)) AS ""FormICF"",
                             SUM(COALESCE(NST_PLAYER.ihdcf, 0)) AS ""FormIHDCF"",
                             get_toi_float_from_seconds((SUM(NST_PLAYER.toi) / COUNT(NST_PLAYER.g))::integer) AS ""FormTOI"",
-                            get_toi_float_from_seconds((SUM(NST_PLAYER.pp_toi) / COUNT(NST_PLAYER.g))::integer) AS ""FormPowerPlayTime"",
-                            1 AS ""FormPowerPlayTeamPosition"",
-                            1 AS ""FormPowerPlayNumber"",
+                            get_toi_float_from_seconds(PPRanks.avg_pp_toi::integer) AS ""FormPowerPlayTime"",
+                            PPRanks.PP_player_rank AS ""FormPowerPlayTeamPosition"",
+                            PPRanks.PP_brigade AS ""FormPowerPlayNumber"",
                             SEASON_PREDS.g AS ""ForecastGoals"",
                             SEASON_PREDS.a AS ""ForecastAssists"",
                             SEASON_PREDS.gp AS ""ForecastGamesPlayed"",
@@ -84,6 +93,7 @@ namespace FantasyWeb.DataAccess.Repositories
                         FROM nhl2324.d_games AS GAME
                         INNER JOIN RankedPlayerGames AS NST_PLAYER ON NST_PLAYER.id_game = GAME.id
                         INNER JOIN nhl2324.d_positions AS POSITION ON POSITION.id = NST_PLAYER.id_position
+                        LEFT JOIN PPRankings AS PPRanks ON PPRanks.id_player = NST_PLAYER.id_player
                         LEFT JOIN nhl2324.dm_players_season_preds AS SEASON_PREDS ON NST_PLAYER.id_player = SEASON_PREDS.id_player
                         WHERE NST_PLAYER.game_rank <= @formGamesCount
                         GROUP BY 
@@ -95,7 +105,10 @@ namespace FantasyWeb.DataAccess.Repositories
                             SEASON_PREDS.a,
                             SEASON_PREDS.gp,
                             SEASON_PREDS.plus_minus,
-                            SEASON_PREDS.pim";
+                            SEASON_PREDS.pim,
+                            PPRanks.avg_pp_toi,
+                            PPRanks.PP_player_rank,
+                            PPRanks.PP_brigade";
 
                 NpgsqlCommand command = new NpgsqlCommand(sqlQuery, connection);
 

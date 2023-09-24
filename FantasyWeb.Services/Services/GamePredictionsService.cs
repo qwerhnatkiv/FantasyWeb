@@ -23,9 +23,13 @@ namespace FantasyWeb.Services.Services
         public async Task<GamesDTO> GetAllGamePredictionsAsync(int seasonID = Constants.Database.CurrentSeasonID, 
                                                                                      int formGamesCount = Constants.Database.FormGamesCount)
         {
-            IEnumerable<PlayerStats> playerStats = await this.playersStatsRepository.GetPlayerStatsAsync(seasonID, formGamesCount);
+            IEnumerable<PlayerStats> playerStats = await this.playersStatsRepository.GetPlayerStatsAsync(seasonID - 1, formGamesCount);
 
             IEnumerable<TeamStats> teamsStats = await fNstRepository.GetLastTeamResultsAsync(seasonID, formGamesCount);
+            foreach(var team in teamsStats)
+            {
+                team.TeamFormWinPercentage = (team.TeamForm.Count(f => f == 'W') * 200 + team.TeamForm.Count(f => f == 'O') * 100) / (formGamesCount * 2);
+            }
 
             IEnumerable<GamePrediction> gamePredictionDTOs = (await fGameRepository.GetAllGamePredictionsAsync(seasonID));
 

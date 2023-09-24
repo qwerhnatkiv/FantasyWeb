@@ -27,7 +27,7 @@
 
         public int FormPowerPlayTeamPosition { get; set; }
 
-        public int? FormPowerPlayNumber { get; set; } = null;
+        public int FormPowerPlayNumber { get; set; }
 
         public double FormTOI { get; set; }
 
