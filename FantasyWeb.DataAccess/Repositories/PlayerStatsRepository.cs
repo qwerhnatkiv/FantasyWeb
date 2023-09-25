@@ -64,7 +64,7 @@ namespace FantasyWeb.DataAccess.Repositories
                                 PP_player_rank,
                                 PP_brigade
                             FROM nhl2324.f_pp_brigades(@idSeason - 1, @formGamesCount)
-                        ),
+                        )
                         SELECT 
                             NST_PLAYER.id_player AS ""PlayerID"", 
                             COALESCE(NST_PLAYER.id_team, 0) AS ""TeamID"", 
