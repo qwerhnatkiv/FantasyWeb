@@ -19,5 +19,12 @@ namespace webapi.Controllers
         {
             return Ok(await gamePredictionsService.GetAllGamePredictionsAsync());
         }
+
+        [HttpGet]
+        [Route("ofo_predictions/get")]
+        public async Task<IActionResult> GetOFOAsync([FromQuery] DateTime lowerBoundDate, [FromQuery] DateTime upperBoundDate)
+        {
+            return Ok(await gamePredictionsService.GetPlayerExpectedFantasyPointsAsync(lowerBoundDate, upperBoundDate));
+        }
     }
 }

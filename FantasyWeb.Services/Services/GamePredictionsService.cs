@@ -1,6 +1,5 @@
 ﻿using FantasyWeb.Common;
 using FantasyWeb.Common.Models;
-using FantasyWeb.DataAccess.Entities;
 using FantasyWeb.DataAccess.Repositories;
 using FantasyWeb.Services.Abstractions;
 using FantasyWeb.Services.DTOs;
@@ -23,7 +22,7 @@ namespace FantasyWeb.Services.Services
         public async Task<GamesDTO> GetAllGamePredictionsAsync(int seasonID = Constants.Database.CurrentSeasonID, 
                                                                                      int formGamesCount = Constants.Database.FormGamesCount)
         {
-            IEnumerable<PlayerStats> playerStats = await this.playersStatsRepository.GetPlayerStatsAsync(seasonID - 1, formGamesCount);
+            IEnumerable<PlayerStats> playerStats = await this.playersStatsRepository.GetPlayerStatsAsync(seasonID, formGamesCount);
 
             IEnumerable<TeamStats> teamsStats = await fNstRepository.GetLastTeamResultsAsync(seasonID, formGamesCount);
             foreach(var team in teamsStats)
@@ -39,6 +38,19 @@ namespace FantasyWeb.Services.Services
                 TeamsStats = teamsStats,
                 PlayerStats = playerStats
             };
+        }
+
+        public async Task<Dictionary<long, List<PlayerExpectedFantasyPointsStats>>> GetPlayerExpectedFantasyPointsAsync(
+                                                               DateTime lowerBoundDate,
+                                                               DateTime upperBoundDate,
+                                                               int seasonID = Constants.Database.CurrentSeasonID,
+                                                               int formGamesCount = Constants.Database.FormGamesCount)
+        {
+            IEnumerable<PlayerExpectedFantasyPointsStats> playerStats = 
+                await playersStatsRepository.GetPlayerExpectedFantasyPointsAsync(seasonID, formGamesCount, lowerBoundDate, upperBoundDate);
+
+
+            return playerStats.GroupBy(k => k.PlayerID, v => v).ToDictionary(x => x.Key, y => y.ToList());
         }
     }
 }

@@ -63,8 +63,8 @@ namespace FantasyWeb.DataAccess.Repositories
                                 avg_pp_toi,
                                 PP_player_rank,
                                 PP_brigade
-                            FROM nhl2324.f_pp_brigades(@idSeason, @formGamesCount)
-                        )
+                            FROM nhl2324.f_pp_brigades(@idSeason - 1, @formGamesCount)
+                        ),
                         SELECT 
                             NST_PLAYER.id_player AS ""PlayerID"", 
                             COALESCE(NST_PLAYER.id_team, 0) AS ""TeamID"", 
@@ -123,6 +123,57 @@ namespace FantasyWeb.DataAccess.Repositories
                         while (await rdr.ReadAsync())
                         {
                             var player = rdr.ConvertToObject<PlayerStats>();
+                            playerStats.Add(player);
+                        }
+
+                        await rdr.NextResultAsync();
+                    }
+                }
+            }
+
+            return playerStats;
+        }
+
+        public async Task<IEnumerable<PlayerExpectedFantasyPointsStats>> GetPlayerExpectedFantasyPointsAsync( 
+                                                                                        int seasonId, 
+                                                                                        int formGamesCount,
+                                                                                        DateTime lowerBoundDate,
+                                                                                        DateTime upperBoundDate)
+        {
+            List<PlayerExpectedFantasyPointsStats> playerStats = new List<PlayerExpectedFantasyPointsStats>(20);
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                await connection.OpenAsync();
+                string sqlQuery =
+                    @"  
+                        SELECT 
+                            OfoCalculations.id_game AS ""GameID"",
+                            OfoCalculations.id_player AS ""PlayerID"",
+                            OfoCalculations.player_game_ofo AS ""PlayerExpectedFantasyPoints"",
+                            PLAYER.id_team AS ""TeamID""
+                        FROM nhl2324.get_complete_ofo_calculations(
+                            nhl2324.get_maximum_ofo_games_array(@lowerBoundDate, @upperBoundDate), 
+                            @formGamesCount, 
+                            @idSeason
+                        ) AS OfoCalculations
+                        INNER JOIN nhl2324.d_games AS GAME ON GAME.id = OfoCalculations.id_game
+                        INNER JOIN nhl2324.d_players AS PLAYER ON PLAYER.id = OfoCalculations.id_player
+                        WHERE GAME.game_date >= @lowerBoundDate AND GAME.game_date <= @upperBoundDate";
+
+                NpgsqlCommand command = new NpgsqlCommand(sqlQuery, connection);
+
+                command.Parameters.Add("@idSeason", NpgsqlDbType.Integer).Value = seasonId;
+                command.Parameters.Add("@formGamesCount", NpgsqlDbType.Integer).Value = formGamesCount;
+                command.Parameters.Add("@lowerBoundDate", NpgsqlDbType.Timestamp).Value = lowerBoundDate;
+                command.Parameters.Add("@upperBoundDate", NpgsqlDbType.Timestamp).Value = upperBoundDate;
+
+                using (NpgsqlDataReader rdr = await command.ExecuteReaderAsync())
+                {
+                    while (rdr.HasRows)
+                    {
+                        while (await rdr.ReadAsync())
+                        {
+                            var player = rdr.ConvertToObject<PlayerExpectedFantasyPointsStats>();
                             playerStats.Add(player);
                         }
 

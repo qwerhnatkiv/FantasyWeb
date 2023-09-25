@@ -12,8 +12,6 @@
 
         public int Price { get; set; }
 
-        public Dictionary<int, float> ExpectedFPForGame { get; set; } = new Dictionary<int, float>();
-
         public long FormGamesPlayed { get; set; }
 
         public long FormGoals { get; set; }
