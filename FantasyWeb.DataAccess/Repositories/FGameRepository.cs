@@ -28,7 +28,8 @@ namespace FantasyWeb.DataAccess.Repositories
                                         d0.acronym_team_wolski AS   ""HomeTeamAcronym"",
                                         d0.name_team AS             ""HomeTeamName"",
                                         d1.acronym_team_wolski AS   ""AwayTeamAcronym"",
-                                        d1.name_team AS             ""AwayTeamName""
+                                        d1.name_team AS             ""AwayTeamName"",
+                                        d.id AS                     ""GameId""
                                 FROM nhl2324.f_games AS f
                                 INNER JOIN nhl2324.d_games AS d ON f.id_game = d.id
                                 INNER JOIN nhl2324.d_teams AS d0 ON d.id_home_team = d0.id

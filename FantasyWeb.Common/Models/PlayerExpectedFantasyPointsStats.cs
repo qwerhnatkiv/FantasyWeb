@@ -6,6 +6,8 @@
 
         public int TeamID { get; set; }
 
+        public string TeamName { get; set; } = string.Empty;
+
         public int GameID { get; set; }
 
         public double PlayerExpectedFantasyPoints { get; set; }

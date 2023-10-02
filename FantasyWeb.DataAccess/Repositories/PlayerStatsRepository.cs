@@ -44,9 +44,9 @@ namespace FantasyWeb.DataAccess.Repositories
                                 NST_PLAYER.toi,
                                 NST_PLAYER.pp_toi,
                                 PLAYER.id AS id_player,
-                                NST_PLAYER.id_game,
+                                GAME.id AS id_game,
                                 PLAYER.id_team,
-                                PLAYER.name_nst_season,
+                                PLAYER.name_sports,
                                 PLAYER.id_position,
                                 ROW_NUMBER() OVER (PARTITION BY PLAYER.id ORDER BY GAME.game_date DESC) AS game_rank
                             FROM nhl2324.d_players AS PLAYER
@@ -68,7 +68,7 @@ namespace FantasyWeb.DataAccess.Repositories
                         SELECT 
                             NST_PLAYER.id_player AS ""PlayerID"", 
                             COALESCE(NST_PLAYER.id_team, 0) AS ""TeamID"", 
-                            NST_PLAYER.name_nst_season AS ""PlayerName"", 
+                            NST_PLAYER.name_sports AS ""PlayerName"", 
                             POSITION.short_name AS ""Position"",
                             0 AS ""Price"",
                             COUNT(NST_PLAYER.g) AS ""FormGamesPlayed"",
@@ -89,7 +89,7 @@ namespace FantasyWeb.DataAccess.Repositories
                             SEASON_PREDS.gp AS ""ForecastGamesPlayed"",
                             SEASON_PREDS.plus_minus AS ""ForecastPlusMinus"",
                             SEASON_PREDS.pim AS ""ForecastPIM"",
-                            'ESPN' AS ""ForecastSources""
+                            SEASON_PREDS.name_sources AS ""ForecastSources""
                         FROM nhl2324.d_games AS GAME
                         INNER JOIN RankedPlayerGames AS NST_PLAYER ON NST_PLAYER.id_game = GAME.id
                         INNER JOIN nhl2324.d_positions AS POSITION ON POSITION.id = NST_PLAYER.id_position
@@ -99,13 +99,14 @@ namespace FantasyWeb.DataAccess.Repositories
                         GROUP BY 
                             NST_PLAYER.id_player, 
                             NST_PLAYER.id_team, 
-                            NST_PLAYER.name_nst_season, 
+                            NST_PLAYER.name_sports, 
                             POSITION.short_name,
                             SEASON_PREDS.g,
                             SEASON_PREDS.a,
                             SEASON_PREDS.gp,
                             SEASON_PREDS.plus_minus,
                             SEASON_PREDS.pim,
+                            SEASON_PREDS.name_sources,
                             PPRanks.avg_pp_toi,
                             PPRanks.PP_player_rank,
                             PPRanks.PP_brigade";
@@ -150,14 +151,17 @@ namespace FantasyWeb.DataAccess.Repositories
                             OfoCalculations.id_game AS ""GameID"",
                             OfoCalculations.id_player AS ""PlayerID"",
                             OfoCalculations.player_game_ofo AS ""PlayerExpectedFantasyPoints"",
-                            PLAYER.id_team AS ""TeamID""
+                            PLAYER.id_team AS ""TeamID"",
+                            TEAM.name_team AS ""TeamName""
                         FROM nhl2324.get_complete_ofo_calculations(
                             nhl2324.get_maximum_ofo_games_array(@lowerBoundDate, @upperBoundDate), 
                             @formGamesCount, 
-                            @idSeason
+                            @idSeason,
+                            @lowerBoundDate
                         ) AS OfoCalculations
                         INNER JOIN nhl2324.d_games AS GAME ON GAME.id = OfoCalculations.id_game
                         INNER JOIN nhl2324.d_players AS PLAYER ON PLAYER.id = OfoCalculations.id_player
+                        INNER JOIN nhl2324.d_teams AS TEAM ON PLAYER.id_team = TEAM.id
                         WHERE GAME.game_date >= @lowerBoundDate AND GAME.game_date <= @upperBoundDate";
 
                 NpgsqlCommand command = new NpgsqlCommand(sqlQuery, connection);
