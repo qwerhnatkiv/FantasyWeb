@@ -44,16 +44,18 @@ namespace FantasyWeb.DataAccess.Repositories
                                 NST_PLAYER.toi,
                                 NST_PLAYER.pp_toi,
                                 PLAYER.id AS id_player,
+                                SPORTS_PLAYER.actual_price AS player_price,
                                 GAME.id AS id_game,
                                 PLAYER.id_team,
                                 PLAYER.name_sports,
                                 PLAYER.id_position,
                                 ROW_NUMBER() OVER (PARTITION BY PLAYER.id ORDER BY GAME.game_date DESC) AS game_rank
                             FROM nhl2324.d_players AS PLAYER
+                            INNER JOIN nhl2324.f_players_sports AS SPORTS_PLAYER ON PLAYER.id = SPORTS_PLAYER.id_player
                             INNER JOIN nhl2324.d_teams AS TEAM ON PLAYER.id_team = TEAM.id
                             INNER JOIN nhl2324.d_teams_games AS TG ON TG.id_team = TEAM.id
                             INNER JOIN nhl2324.d_games AS GAME ON TG.id_game = GAME.id
-                            LEFT JOIN nhl2324.f_players_nst AS NST_PLAYER ON PLAYER.id = NST_PLAYER.id_player AND GAME.id = NST_PLAYER.id_game
+                            LEFT JOIN nhl2324.f_players_nst AS NST_PLAYER ON PLAYER.id = NST_PLAYER.id_player AND GAME.id = NST_PLAYER.id_game AND GAME.id_season = @idSeason
                             WHERE GAME.game_date < @dateTime
                         ),
                             PPRankings AS (
@@ -70,7 +72,7 @@ namespace FantasyWeb.DataAccess.Repositories
                             COALESCE(NST_PLAYER.id_team, 0) AS ""TeamID"", 
                             NST_PLAYER.name_sports AS ""PlayerName"", 
                             POSITION.short_name AS ""Position"",
-                            0 AS ""Price"",
+                            NST_PLAYER.player_price AS ""Price"",
                             COUNT(NST_PLAYER.g) AS ""FormGamesPlayed"",
                             SUM(COALESCE(NST_PLAYER.g, 0)) AS ""FormGoals"",
                             SUM(COALESCE(NST_PLAYER.a, 0)) AS ""FormAssists"",
@@ -93,13 +95,14 @@ namespace FantasyWeb.DataAccess.Repositories
                         FROM nhl2324.d_games AS GAME
                         INNER JOIN RankedPlayerGames AS NST_PLAYER ON NST_PLAYER.id_game = GAME.id
                         INNER JOIN nhl2324.d_positions AS POSITION ON POSITION.id = NST_PLAYER.id_position
-                        LEFT JOIN PPRankings AS PPRanks ON PPRanks.id_player = NST_PLAYER.id_player
-                        LEFT JOIN nhl2324.dm_players_season_preds AS SEASON_PREDS ON NST_PLAYER.id_player = SEASON_PREDS.id_player
+                        LEFT JOIN PPRankings AS PPRanks ON PPRanks.id_player = NST_PLAYER.id_player AND GAME.id_season = @idSeason
+                        LEFT JOIN nhl2324.dm_season_preds_players AS SEASON_PREDS ON NST_PLAYER.id_player = SEASON_PREDS.id_player
                         WHERE NST_PLAYER.game_rank <= @formGamesCount
                         GROUP BY 
                             NST_PLAYER.id_player, 
                             NST_PLAYER.id_team, 
                             NST_PLAYER.name_sports, 
+                            NST_PLAYER.player_price,
                             POSITION.short_name,
                             SEASON_PREDS.g,
                             SEASON_PREDS.a,

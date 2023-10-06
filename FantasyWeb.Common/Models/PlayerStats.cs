@@ -10,7 +10,7 @@
 
         public string Position { get; set; }
 
-        public int Price { get; set; }
+        public short Price { get; set; }
 
         public long FormGamesPlayed { get; set; }
 
