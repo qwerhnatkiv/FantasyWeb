@@ -44,7 +44,7 @@ namespace FantasyWeb.DataAccess.Repositories
                 NpgsqlCommand command = new NpgsqlCommand(sqlQuery, connection);
 
                 command.Parameters.Add("@idSeason", NpgsqlDbType.Integer).Value = seasonID;
-                command.Parameters.Add("@dateTime", NpgsqlDbType.Timestamp).Value = DateTime.Now;
+                command.Parameters.Add("@dateTime", NpgsqlDbType.Timestamp).Value = DateTime.Today;
 
                 using (NpgsqlDataReader rdr = await command.ExecuteReaderAsync())
                 {

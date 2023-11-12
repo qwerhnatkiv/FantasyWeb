@@ -1,4 +1,5 @@
-﻿using FantasyWeb.Services.Abstractions;
+﻿using FantasyWeb.Common;
+using FantasyWeb.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace webapi.Controllers
@@ -15,16 +16,16 @@ namespace webapi.Controllers
 
         [HttpGet]
         [Route("games/get")]
-        public async Task<IActionResult> GetTeamsAsync()
+        public async Task<IActionResult> GetTeamsAsync([FromQuery] int formLength)
         {
-            return Ok(await gamePredictionsService.GetAllGamePredictionsAsync());
+            return Ok(await gamePredictionsService.GetAllGamePredictionsAsync(Constants.Database.CurrentSeasonID, formLength));
         }
 
         [HttpGet]
         [Route("ofo_predictions/get")]
-        public async Task<IActionResult> GetOFOAsync([FromQuery] DateTime lowerBoundDate, [FromQuery] DateTime upperBoundDate)
+        public async Task<IActionResult> GetOFOAsync([FromQuery] DateTime lowerBoundDate, [FromQuery] DateTime upperBoundDate, [FromQuery] int formLength)
         {
-            return Ok(await gamePredictionsService.GetPlayerExpectedFantasyPointsAsync(lowerBoundDate, upperBoundDate));
+            return Ok(await gamePredictionsService.GetPlayerExpectedFantasyPointsAsync(lowerBoundDate, upperBoundDate, Constants.Database.CurrentSeasonID, formLength));
         }
     }
 }

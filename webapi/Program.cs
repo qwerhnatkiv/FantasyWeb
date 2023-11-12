@@ -1,3 +1,4 @@
+using FantasyWeb.Services.Abstractions.Http;
 using webapi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);

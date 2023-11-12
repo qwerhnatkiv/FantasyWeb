@@ -44,6 +44,7 @@ namespace FantasyWeb.DataAccess.Repositories
                                 NST_PLAYER.toi,
                                 NST_PLAYER.pp_toi,
                                 PLAYER.id AS id_player,
+                                PLAYER.id_player_sports,
                                 SPORTS_PLAYER.actual_price AS player_price,
                                 GAME.id AS id_game,
                                 PLAYER.id_team,
@@ -65,10 +66,11 @@ namespace FantasyWeb.DataAccess.Repositories
                                 avg_pp_toi,
                                 PP_player_rank,
                                 PP_brigade
-                            FROM nhl2324.f_pp_brigades(@idSeason - 1, @formGamesCount)
+                            FROM nhl2324.f_pp_brigades(@idSeason, @formGamesCount)
                         )
                         SELECT 
                             NST_PLAYER.id_player AS ""PlayerID"", 
+                            NST_PLAYER.id_player_sports AS ""PlayerIdSports"",
                             COALESCE(NST_PLAYER.id_team, 0) AS ""TeamID"", 
                             NST_PLAYER.name_sports AS ""PlayerName"", 
                             POSITION.short_name AS ""Position"",
@@ -95,11 +97,12 @@ namespace FantasyWeb.DataAccess.Repositories
                         FROM nhl2324.d_games AS GAME
                         INNER JOIN RankedPlayerGames AS NST_PLAYER ON NST_PLAYER.id_game = GAME.id
                         INNER JOIN nhl2324.d_positions AS POSITION ON POSITION.id = NST_PLAYER.id_position
-                        LEFT JOIN PPRankings AS PPRanks ON PPRanks.id_player = NST_PLAYER.id_player AND GAME.id_season = @idSeason
+                        LEFT JOIN PPRankings AS PPRanks ON PPRanks.id_player = NST_PLAYER.id_player
                         LEFT JOIN nhl2324.dm_season_preds_players AS SEASON_PREDS ON NST_PLAYER.id_player = SEASON_PREDS.id_player
                         WHERE NST_PLAYER.game_rank <= @formGamesCount
                         GROUP BY 
                             NST_PLAYER.id_player, 
+                            NST_PLAYER.id_player_sports,
                             NST_PLAYER.id_team, 
                             NST_PLAYER.name_sports, 
                             NST_PLAYER.player_price,
@@ -118,7 +121,7 @@ namespace FantasyWeb.DataAccess.Repositories
 
                 command.Parameters.Add("@idSeason", NpgsqlDbType.Integer).Value = seasonId;
                 command.Parameters.Add("@formGamesCount", NpgsqlDbType.Integer).Value = formGamesCount;
-                command.Parameters.Add("@dateTime", NpgsqlDbType.Timestamp).Value = DateTime.Now;
+                command.Parameters.Add("@dateTime", NpgsqlDbType.Timestamp).Value = DateTime.Today;
 
                 using (NpgsqlDataReader rdr = await command.ExecuteReaderAsync())
                 {

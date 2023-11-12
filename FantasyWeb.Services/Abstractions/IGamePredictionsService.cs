@@ -6,13 +6,12 @@ namespace FantasyWeb.Services.Abstractions
 {
     public interface IGamePredictionsService
     {
-        Task<GamesDTO> GetAllGamePredictionsAsync(int seasonID = Constants.Database.CurrentSeasonID,
-                                                                        int formGamesCount = Constants.Database.FormGamesCount);
+        Task<GamesDTO> GetAllGamePredictionsAsync(int seasonID, int formGamesCount);
 
         Task<Dictionary<long, List<PlayerExpectedFantasyPointsStats>>> GetPlayerExpectedFantasyPointsAsync(
                                                                DateTime lowerBoundDate,
                                                                DateTime upperBoundDate,
-                                                               int seasonID = Constants.Database.CurrentSeasonID,
-                                                               int formGamesCount = Constants.Database.FormGamesCount);
+                                                               int seasonID, 
+                                                               int formGamesCount);
     }
 }

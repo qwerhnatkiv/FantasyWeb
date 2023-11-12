@@ -4,6 +4,8 @@
     {
         public long PlayerID { get; set; }
 
+        public long PlayerIdSports { get; set; }
+
         public string PlayerName { get; set; }
 
         public int TeamID { get; set; }

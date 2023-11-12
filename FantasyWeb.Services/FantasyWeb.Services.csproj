@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Flurl" Version="3.0.7" />
+    <PackageReference Include="Flurl.Http" Version="3.2.4" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.54" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\FantasyWeb.Common\FantasyWeb.Common.csproj" />
     <ProjectReference Include="..\FantasyWeb.DataAccess\FantasyWeb.DataAccess.csproj" />
   </ItemGroup>

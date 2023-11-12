@@ -16,4 +16,10 @@
     <ProjectReference Include="..\FantasyWeb.Services\FantasyWeb.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="scripts\test.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
