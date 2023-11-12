@@ -442,4 +442,7 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
-webapi/bin/*
+bin/*
+obj/*
+Properties
+scripts
