@@ -88,11 +88,11 @@ namespace FantasyWeb.DataAccess.Repositories
                             get_toi_float_from_seconds(PPRanks.avg_pp_toi::integer) AS ""FormPowerPlayTime"",
                             PPRanks.PP_player_rank AS ""FormPowerPlayTeamPosition"",
                             PPRanks.PP_brigade AS ""FormPowerPlayNumber"",
-                            SEASON_PREDS.g AS ""ForecastGoals"",
-                            SEASON_PREDS.a AS ""ForecastAssists"",
-                            SEASON_PREDS.gp AS ""ForecastGamesPlayed"",
-                            SEASON_PREDS.plus_minus AS ""ForecastPlusMinus"",
-                            SEASON_PREDS.pim AS ""ForecastPIM"",
+                            COALESCE(SEASON_PREDS.g, 0) AS ""ForecastGoals"",
+                            COALESCE(SEASON_PREDS.a, 0) AS ""ForecastAssists"",
+                            COALESCE(SEASON_PREDS.gp, 0) AS ""ForecastGamesPlayed"",
+                            COALESCE(SEASON_PREDS.plus_minus, 0) AS ""ForecastPlusMinus"",
+                            COALESCE(SEASON_PREDS.pim, 0) AS ""ForecastPIM"",
                             SEASON_PREDS.name_sources AS ""ForecastSources""
                         FROM nhl2324.d_games AS GAME
                         INNER JOIN RankedPlayerGames AS NST_PLAYER ON NST_PLAYER.id_game = GAME.id
