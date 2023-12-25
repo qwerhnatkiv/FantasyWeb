@@ -443,3 +443,5 @@ FodyWeavers.xsd
 *.sln.iml
 
 webapi/bin/*
+
+webapi/scripts/

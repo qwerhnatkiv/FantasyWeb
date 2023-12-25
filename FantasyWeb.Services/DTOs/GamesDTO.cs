@@ -9,5 +9,7 @@ namespace FantasyWeb.Services.DTOs
         public IEnumerable<TeamStats> TeamsStats { get; set; } = new List<TeamStats>();
 
         public IEnumerable<PlayerStats> PlayerStats { get; set; } = new List<PlayerStats>();
+
+        public UpdateLogInformation UpdateLogInformation { get; set; }
     }
 }

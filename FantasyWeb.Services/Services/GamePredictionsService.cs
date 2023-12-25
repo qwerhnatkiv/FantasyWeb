@@ -11,12 +11,14 @@ namespace FantasyWeb.Services.Services
         private readonly IFGameRepository fGameRepository;
         private readonly IFNstRepository fNstRepository;
         private readonly IPlayersStatsRepository playersStatsRepository;
+        private readonly IFUpdateLogRepository fUpdateLogRepository;
 
-        public GamePredictionsService(IFGameRepository fGameRepository, IFNstRepository fNstRepository, IPlayersStatsRepository playersStatsRepository)
+        public GamePredictionsService(IFGameRepository fGameRepository, IFNstRepository fNstRepository, IPlayersStatsRepository playersStatsRepository, IFUpdateLogRepository fUpdateLogRepository)
         {
             this.fGameRepository = fGameRepository;
             this.fNstRepository = fNstRepository;
             this.playersStatsRepository = playersStatsRepository;
+            this.fUpdateLogRepository = fUpdateLogRepository;
         }
 
         public async Task<GamesDTO> GetAllGamePredictionsAsync(int seasonID, int formGamesCount)
@@ -30,13 +32,15 @@ namespace FantasyWeb.Services.Services
                 team.TeamFormWinPercentage = (team.TeamForm.Count(f => f == 'W') * 200 + team.TeamForm.Count(f => f == 'O') * 100) / (gamesCount * 2);
             }
 
-            IEnumerable<GamePrediction> gamePredictionDTOs = (await fGameRepository.GetAllGamePredictionsAsync(seasonID));
+            IEnumerable<GamePrediction> gamePredictionDTOs = await fGameRepository.GetAllGamePredictionsAsync(seasonID);
+            UpdateLogInformation updateLogInformation = await fUpdateLogRepository.GetLatestUpdateDatesAsync();
 
             return new GamesDTO
             {
                 GamePredictions = gamePredictionDTOs,
                 TeamsStats = teamsStats,
-                PlayerStats = playerStats
+                PlayerStats = playerStats,
+                UpdateLogInformation = updateLogInformation
             };
         }
 

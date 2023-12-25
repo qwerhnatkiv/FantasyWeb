@@ -1,5 +1,8 @@
 ﻿using Microsoft.Extensions.Hosting;
 using System.Diagnostics;
+using System.Reflection;
+using System.Reflection.Emit;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace FantasyWeb.Services.Services
 {
@@ -10,7 +13,7 @@ namespace FantasyWeb.Services.Services
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(30));
+            _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(86400));
 
             return Task.CompletedTask;
         }
@@ -29,26 +32,8 @@ namespace FantasyWeb.Services.Services
 
         private void DoWork(object? state)
         {
-            //if (_isRunning)
-            //{
-            //    return;
-            //}
-
-            //ProcessStartInfo startInfo = new ProcessStartInfo();
-            //startInfo.UseShellExecute = false;
-            //startInfo.FileName = "D:\\Programming\\FantasyWeb\\webapi\\scripts\\dist\\main\\main.exe";
-            //startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            //startInfo.RedirectStandardOutput = true;
-
-            //using (Process process = Process.Start(startInfo))
-            //{
-            //    _isRunning = true;
-            //    using (StreamReader reader = process.StandardOutput)
-            //    {
-            //        string result = reader.ReadToEnd();
-            //        Debug.WriteLine(result);
-            //    }
-            //}
+            //string directory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            //Process.Start($"{directory}\\scripts\\main.exe");
         }
     }
 }

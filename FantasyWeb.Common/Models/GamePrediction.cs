@@ -10,6 +10,8 @@
         public float HomeTeamWinChance { get; set; }
         public float AwayTeamWinChance { get; set; }
         public float DrawChance { get; set; }
+
+        public bool IsFromBookmakers { get; set; }
         public int WeekNumber { get; set; }
 
         public int HomeTeamId { get; set; }

@@ -19,6 +19,10 @@ namespace FantasyWeb.Services.Services.Http
             HtmlNode? balanceValueNode = balanceLabelNode.ParentNode.SelectSingleNode("td");
             sportsSquadDTO.Balance = int.Parse(balanceValueNode.InnerText);
 
+            HtmlNode? substitutionsLabelNode = sportsRuSquadPage.DocumentNode.SelectSingleNode("//*[text() = 'Трансферы']");
+            HtmlNode? substitutionsValueNode = substitutionsLabelNode.ParentNode.SelectSingleNode("td");
+            sportsSquadDTO.Substitutions = int.Parse(substitutionsValueNode.InnerText);
+
             return sportsSquadDTO;
         }
     }
