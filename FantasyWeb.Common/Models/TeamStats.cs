@@ -15,9 +15,9 @@
 
         public decimal TeamFormSA { get; set; }
 
-        public decimal TeamFormXGF { get; set; }
+        public double TeamFormXGF { get; set; }
 
-        public decimal TeamFormXGA { get; set; }
+        public double TeamFormXGA { get; set; }
 
         public IEnumerable<TeamGameStat> TeamGameStats { get; set; }
 
