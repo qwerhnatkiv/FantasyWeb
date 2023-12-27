@@ -51,6 +51,7 @@ namespace FantasyWeb.DataAccess.Repositories
                         SELECT 
                             TEAM.id AS ""TeamID"", 
                             TEAM.acronym_team_wolski AS ""TeamAcronym"",
+                            TEAM.name_team AS ""TeamName"",
                             AVG(COALESCE(NST_TEAM_RECORD.gf, 0.0)) AS ""TeamGoalsForm"",
                             AVG(COALESCE(NST_TEAM_RECORD.ga, 0.0)) AS ""TeamGoalsAwayForm"",
                             AVG(COALESCE(NST_TEAM_RECORD.sf, 0.0)) AS ""TeamFormSF"",
@@ -69,7 +70,10 @@ namespace FantasyWeb.DataAccess.Repositories
                         LEFT JOIN
                             nhl2324.d_games AS GAME ON NST_TEAM_RECORD.id_game = GAME.id
                         WHERE nst_team_record.game_rank <= @formGamesCount OR nst_team_record IS NULL
-                        GROUP BY TEAM.id, TEAM.acronym_team_wolski;";
+                        GROUP BY 
+                            TEAM.id, 
+                            TEAM.acronym_team_wolski,
+                            TEAM.name_team;";
 
                 NpgsqlCommand command = new NpgsqlCommand(sqlQuery, connection);
 
