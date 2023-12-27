@@ -37,6 +37,10 @@ namespace FantasyWeb.DataAccess.Repositories
                             f.l,
                             f.gf, 
                             f.ga,
+                            f.sf,
+                            f.sa,
+                            f.xgf,
+                            f.xga,
                             ROW_NUMBER() OVER (PARTITION BY t.id ORDER BY dg.game_date DESC) AS game_rank
                           FROM nhl2324.d_teams AS t
                           LEFT JOIN nhl2324.f_teams_nst AS f ON t.id = f.id_team
@@ -49,6 +53,10 @@ namespace FantasyWeb.DataAccess.Repositories
                             TEAM.acronym_team_wolski AS ""TeamAcronym"",
                             AVG(COALESCE(NST_TEAM_RECORD.gf, 0.0)) AS ""TeamGoalsForm"",
                             AVG(COALESCE(NST_TEAM_RECORD.ga, 0.0)) AS ""TeamGoalsAwayForm"",
+                            AVG(COALESCE(NST_TEAM_RECORD.sf, 0.0)) AS ""TeamFormSF"",
+                            AVG(COALESCE(NST_TEAM_RECORD.sa, 0.0)) AS ""TeamFormSA"",
+                            AVG(COALESCE(NST_TEAM_RECORD.xgf, 0.0)) AS ""TeamFormXGF"",
+                            AVG(COALESCE(NST_TEAM_RECORD.xga, 0.0)) AS ""TeamFormXGA"",
                             CONVERT_RESULTS_TO_STR(
                                 COALESCE(NST_TEAM_RECORD.w, 0.0), 
                                 COALESCE(NST_TEAM_RECORD.l, 0.0), 
