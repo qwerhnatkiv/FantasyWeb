@@ -3,6 +3,7 @@ using FantasyWeb.Common.Models;
 using FantasyWeb.DataAccess.Repositories;
 using FantasyWeb.Services.Abstractions;
 using FantasyWeb.Services.DTOs;
+using System;
 
 namespace FantasyWeb.Services.Services
 {
@@ -34,6 +35,10 @@ namespace FantasyWeb.Services.Services
 
             IEnumerable<GamePrediction> gamePredictionDTOs = await fGameRepository.GetAllGamePredictionsAsync(seasonID);
             UpdateLogInformation updateLogInformation = await fUpdateLogRepository.GetLatestUpdateDatesAsync();
+
+            TimeZoneInfo timeInfo = TimeZoneInfo.FindSystemTimeZoneById("Russian Standard Time");
+            updateLogInformation.BookmakersUpdateDate = TimeZoneInfo.ConvertTimeFromUtc(updateLogInformation.BookmakersUpdateDate, timeInfo);
+            updateLogInformation.GeneralUpdateDate = TimeZoneInfo.ConvertTimeFromUtc(updateLogInformation.GeneralUpdateDate, timeInfo);
 
             return new GamesDTO
             {
