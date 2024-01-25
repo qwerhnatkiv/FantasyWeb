@@ -49,7 +49,7 @@ namespace FantasyWeb.DataAccess.Repositories
                                 GAME.id AS id_game,
                                 PLAYER.id_team,
                                 PLAYER.name_sports,
-                                COALESCE(PLAYER.name_nst_games, PLAYER.name_espn) AS eng_name,
+                                COALESCE(PLAYER.name_nst_games, COALESCE(PLAYER.name_nst_season, PLAYER.name_espn)) AS eng_name,
                                 PLAYER.id_position,
                                 ROW_NUMBER() OVER (PARTITION BY PLAYER.id ORDER BY GAME.game_date DESC) AS game_rank
                             FROM nhl2324.d_players AS PLAYER
