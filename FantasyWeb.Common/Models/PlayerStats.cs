@@ -8,6 +8,8 @@
 
         public string PlayerName { get; set; }
 
+        public string PlayerNameEng { get; set; }
+
         public int TeamID { get; set; }
 
         public string Position { get; set; }

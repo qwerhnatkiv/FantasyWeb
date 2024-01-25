@@ -49,6 +49,7 @@ namespace FantasyWeb.DataAccess.Repositories
                                 GAME.id AS id_game,
                                 PLAYER.id_team,
                                 PLAYER.name_sports,
+                                COALESCE(PLAYER.name_nst_games, PLAYER.name_espn) AS eng_name,
                                 PLAYER.id_position,
                                 ROW_NUMBER() OVER (PARTITION BY PLAYER.id ORDER BY GAME.game_date DESC) AS game_rank
                             FROM nhl2324.d_players AS PLAYER
@@ -73,6 +74,7 @@ namespace FantasyWeb.DataAccess.Repositories
                             NST_PLAYER.id_player_sports AS ""PlayerIdSports"",
                             COALESCE(NST_PLAYER.id_team, 0) AS ""TeamID"", 
                             NST_PLAYER.name_sports AS ""PlayerName"", 
+                            NST_PLAYER.eng_name AS ""PlayerNameEng"",
                             POSITION.short_name AS ""Position"",
                             NST_PLAYER.player_price AS ""Price"",
                             COUNT(NST_PLAYER.g) AS ""FormGamesPlayed"",
@@ -104,7 +106,8 @@ namespace FantasyWeb.DataAccess.Repositories
                             NST_PLAYER.id_player, 
                             NST_PLAYER.id_player_sports,
                             NST_PLAYER.id_team, 
-                            NST_PLAYER.name_sports, 
+                            NST_PLAYER.name_sports,
+                            NST_PLAYER.eng_name,
                             NST_PLAYER.player_price,
                             POSITION.short_name,
                             SEASON_PREDS.g,
