@@ -33,12 +33,16 @@ namespace FantasyWeb.DataAccess.Repositories
                                         d0.name_team AS                                     ""HomeTeamName"",
                                         d1.acronym_team_wolski AS                           ""AwayTeamAcronym"",
                                         d1.name_team AS                                     ""AwayTeamName"",
-                                        d.id AS                                             ""GameId""
+                                        d.id AS                                             ""GameId"",
+                                        CASE 
+                                              WHEN d.game_date >= @dateTime  THEN False
+                                              ELSE True
+                                        END AS ""IsOldGame""
                                 FROM nhl2324.f_games AS f
                                 INNER JOIN nhl2324.d_games AS d ON f.id_game = d.id
                                 INNER JOIN nhl2324.d_teams AS d0 ON d.id_home_team = d0.id
                                 INNER JOIN nhl2324.d_teams AS d1 ON d.id_away_team = d1.id
-                                WHERE d.id_season = @idSeason AND d.game_date >= @dateTime";
+                                WHERE d.id_season = @idSeason";
 
             List<GamePrediction> result = new List<GamePrediction>(1000);
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))

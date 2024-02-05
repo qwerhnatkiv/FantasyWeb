@@ -18,5 +18,7 @@
         public int AwayTeamId { get; set; }
 
         public int GameId { get; set; }
+
+        public bool IsOldGame { get; set; }
     }
 }
