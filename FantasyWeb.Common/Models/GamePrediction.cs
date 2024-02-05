@@ -20,5 +20,9 @@
         public int GameId { get; set; }
 
         public bool IsOldGame { get; set; }
+
+        public short? HomeTeamGoals { get; set; }
+
+        public short? AwayTeamGoals { get; set; }
     }
 }

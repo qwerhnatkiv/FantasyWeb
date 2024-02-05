@@ -34,6 +34,8 @@ namespace FantasyWeb.DataAccess.Repositories
                                         d1.acronym_team_wolski AS                           ""AwayTeamAcronym"",
                                         d1.name_team AS                                     ""AwayTeamName"",
                                         d.id AS                                             ""GameId"",
+                                        d.gf_home_ot AS                                     ""HomeTeamGoals"",
+                                        d.gf_away_ot AS                                     ""AwayTeamGoals"",
                                         CASE 
                                               WHEN d.game_date >= @dateTime  THEN False
                                               ELSE True
