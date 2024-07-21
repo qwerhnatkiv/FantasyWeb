@@ -443,5 +443,9 @@ FodyWeavers.xsd
 *.sln.iml
 
 webapi/bin/*
+webapi/bin/
+webapi/obj/
+webapi/obj/*
+webapi/webapi.csproj.user
 
 webapi/scripts/
