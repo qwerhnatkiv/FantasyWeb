@@ -2,6 +2,7 @@
 using FantasyWeb.DataAccess.Entities;
 using FantasyWeb.DataAccess.Extensions;
 using FantasyWeb.DataAccess.Utils;
+using MethodTimer;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using NpgsqlTypes;
@@ -18,6 +19,7 @@ namespace FantasyWeb.DataAccess.Repositories
             this.connectionString = connectionString;
         }
 
+        [Time]
         public async Task<IEnumerable<TeamStats>> GetLastTeamResultsAsync(int seasonID, int formGamesCount)
         {
 

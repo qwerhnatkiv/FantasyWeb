@@ -1,6 +1,7 @@
 ﻿using FantasyWeb.Common.Models;
 using FantasyWeb.DataAccess.Entities;
 using FantasyWeb.DataAccess.Utils;
+using MethodTimer;
 using Npgsql;
 using NpgsqlTypes;
 
@@ -15,6 +16,7 @@ namespace FantasyWeb.DataAccess.Repositories
             this.connectionString = connectionString;
         }
 
+        [Time]
         public async Task<IEnumerable<GamePrediction>> GetAllGamePredictionsAsync(int seasonID)
         {
             var sqlQuery = @"   SELECT  

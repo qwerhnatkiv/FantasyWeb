@@ -3,6 +3,7 @@ using FantasyWeb.Common.Models;
 using FantasyWeb.DataAccess.Repositories;
 using FantasyWeb.Services.Abstractions;
 using FantasyWeb.Services.DTOs;
+using MethodTimer;
 using System;
 
 namespace FantasyWeb.Services.Services
@@ -22,8 +23,10 @@ namespace FantasyWeb.Services.Services
             this.fUpdateLogRepository = fUpdateLogRepository;
         }
 
+        [Time]
         public async Task<GamesDTO> GetAllGamePredictionsAsync(int seasonID, int formGamesCount)
         {
+            seasonID = 14;
             IEnumerable<PlayerStats> playerStats = await this.playersStatsRepository.GetPlayerStatsAsync(seasonID, formGamesCount);
 
             IEnumerable<TeamStats> teamsStats = await fNstRepository.GetLastTeamResultsAsync(seasonID, formGamesCount);
