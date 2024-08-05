@@ -26,7 +26,6 @@ namespace FantasyWeb.Services.Services
         [Time]
         public async Task<GamesDTO> GetAllGamePredictionsAsync(int seasonID, int formGamesCount)
         {
-            seasonID = 14;
             IEnumerable<PlayerStats> playerStats = await this.playersStatsRepository.GetPlayerStatsAsync(seasonID, formGamesCount);
 
             IEnumerable<TeamStats> teamsStats = await fNstRepository.GetLastTeamResultsAsync(seasonID, formGamesCount);
