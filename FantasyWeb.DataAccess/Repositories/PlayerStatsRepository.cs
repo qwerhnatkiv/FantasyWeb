@@ -15,7 +15,6 @@ namespace FantasyWeb.DataAccess.Repositories
             this.connectionString = connectionString;
         }
 
-        [Time]
         public async Task<IEnumerable<PlayerStats>> GetPlayerStatsAsync(int seasonId, int formGamesCount)
         {
             List<PlayerStats> playerStats = new List<PlayerStats>(1000);
@@ -49,9 +48,7 @@ namespace FantasyWeb.DataAccess.Repositories
                             INNER JOIN nhl2324.d_teams AS TEAM ON PLAYER.id_team = TEAM.id
                             INNER JOIN nhl2324.d_teams_games AS TG ON TG.id_team = TEAM.id
                             INNER JOIN nhl2324.d_games AS GAME ON TG.id_game = GAME.id
-                        WHERE
-                            GAME.game_date < @dateTime
-                            and GAME.id_season = @idSeason
+                        WHERE GAME.id_season = @idSeason
                         ),
                         PPRankings AS (
                         SELECT
