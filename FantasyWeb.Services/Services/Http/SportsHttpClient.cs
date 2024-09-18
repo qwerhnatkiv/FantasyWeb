@@ -31,25 +31,25 @@ namespace FantasyWeb.Services.Services.Http
                 Substitutions = 5,
                 Players = new List<SportsSquadPlayerDTO>
                 {
-                    new SportsSquadPlayerDTO () { Id = 1087 },
-                    new SportsSquadPlayerDTO () { Id = 283 },
+                    new SportsSquadPlayerDTO () { Id = 1908477 },
+                    new SportsSquadPlayerDTO () { Id = 1843111 },
 
-                    new SportsSquadPlayerDTO () { Id = 586 },
-                    new SportsSquadPlayerDTO () { Id = 1118 },
-                    new SportsSquadPlayerDTO () { Id = 1035 },
-                    new SportsSquadPlayerDTO () { Id = 391 },
-                    new SportsSquadPlayerDTO () { Id = 140 },
-                    new SportsSquadPlayerDTO () { Id = 1165 },
+                    new SportsSquadPlayerDTO () { Id = 1976577 },
+                    new SportsSquadPlayerDTO () { Id = 1976603 },
+                    new SportsSquadPlayerDTO () { Id = 1952455 },
+                    new SportsSquadPlayerDTO () { Id = 26417 },
+                    new SportsSquadPlayerDTO () { Id = 1991649 },
+                    new SportsSquadPlayerDTO () { Id = 37792 },
 
-                    new SportsSquadPlayerDTO () { Id = 592 },
-                    new SportsSquadPlayerDTO () { Id = 600 },
-                    new SportsSquadPlayerDTO () { Id = 502 },
-                    new SportsSquadPlayerDTO () { Id = 673 },
-                    new SportsSquadPlayerDTO () { Id = 735 },
-                    new SportsSquadPlayerDTO () { Id = 1183 },
-                    new SportsSquadPlayerDTO () { Id = 719 },
-                    new SportsSquadPlayerDTO () { Id = 606 },
-                    new SportsSquadPlayerDTO () { Id = 734 },
+                    new SportsSquadPlayerDTO () { Id = 1843078 },
+                    new SportsSquadPlayerDTO () { Id = 1836995 },
+                    new SportsSquadPlayerDTO () { Id = 1755742 },
+                    new SportsSquadPlayerDTO () { Id = 1884104 },
+                    new SportsSquadPlayerDTO () { Id = 1843151 },
+                    new SportsSquadPlayerDTO () { Id = 26043 },
+                    new SportsSquadPlayerDTO () { Id = 1934871 },
+                    new SportsSquadPlayerDTO () { Id = 1753254 },
+                    new SportsSquadPlayerDTO () { Id = 1908928 },
                 }
             };
         }
