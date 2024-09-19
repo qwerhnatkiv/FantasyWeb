@@ -36,13 +36,13 @@ namespace FantasyWeb.Services.Services.Http
 
                     new SportsSquadPlayerDTO () { Id = 1976577 },
                     new SportsSquadPlayerDTO () { Id = 1976603 },
-                    new SportsSquadPlayerDTO () { Id = 1952455 },
-                    new SportsSquadPlayerDTO () { Id = 26417 },
+                    new SportsSquadPlayerDTO () { Id = 2040082 },
+                    new SportsSquadPlayerDTO () { Id = 1976589 },
                     new SportsSquadPlayerDTO () { Id = 1991649 },
-                    new SportsSquadPlayerDTO () { Id = 37792 },
+                    new SportsSquadPlayerDTO () { Id = 1798127 },
 
-                    new SportsSquadPlayerDTO () { Id = 1843078 },
-                    new SportsSquadPlayerDTO () { Id = 1836995 },
+                    new SportsSquadPlayerDTO () { Id = 2003939 },
+                    new SportsSquadPlayerDTO () { Id = 1908929 },
                     new SportsSquadPlayerDTO () { Id = 1755742 },
                     new SportsSquadPlayerDTO () { Id = 1884104 },
                     new SportsSquadPlayerDTO () { Id = 1843151 },
