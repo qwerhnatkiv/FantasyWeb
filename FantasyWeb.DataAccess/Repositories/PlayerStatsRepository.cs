@@ -90,8 +90,10 @@ namespace FantasyWeb.DataAccess.Repositories
                     FROM
                         RankedPlayerGames AS RPG
                     INNER JOIN nhl2324.d_positions AS POSITION ON POSITION.id = RPG.id_position
+                    INNER JOIN nhl2324.f_players_sports AS SPORTS_PLAYER 
+                        ON RPG.id_player = SPORTS_PLAYER.id_player
+                        AND SPORTS_PLAYER.id_season = @idSeason
                     LEFT JOIN nhl2324.f_players_nst AS NST_PLAYER ON RPG.id_player = NST_PLAYER.id_player AND RPG.id_game = NST_PLAYER.id_game
-                    INNER JOIN nhl2324.f_players_sports AS SPORTS_PLAYER ON RPG.id_player = SPORTS_PLAYER.id_player
                     LEFT JOIN PPRankings AS PPRanks ON PPRanks.id_player = RPG.id_player
                     LEFT JOIN nhl2324.dm_season_preds_players AS SEASON_PREDS ON RPG.id_player = SEASON_PREDS.id_player
                     WHERE
