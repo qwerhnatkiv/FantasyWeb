@@ -32,23 +32,23 @@ namespace FantasyWeb.Services.Services.Http
                 Players = new List<SportsSquadPlayerDTO>
                 {
                     new SportsSquadPlayerDTO () { Id = 34848 },
-                    new SportsSquadPlayerDTO () { Id = 1797942 },
-
-                    new SportsSquadPlayerDTO () { Id = 37590 },
-                    new SportsSquadPlayerDTO () { Id = 1902107 },
-                    new SportsSquadPlayerDTO () { Id = 1836910 },
-                    new SportsSquadPlayerDTO () { Id = 1908964 },
-                    new SportsSquadPlayerDTO () { Id = 2004578 },
-                    new SportsSquadPlayerDTO () { Id = 1947355 },
+                    new SportsSquadPlayerDTO () { Id = 34848 },
 
                     new SportsSquadPlayerDTO () { Id = 1907827 },
                     new SportsSquadPlayerDTO () { Id = 1907827 },
-                    new SportsSquadPlayerDTO () { Id = 1842365 },
-                    new SportsSquadPlayerDTO () { Id = 2124462 },
-                    new SportsSquadPlayerDTO () { Id = 2055945 },
-                    new SportsSquadPlayerDTO () { Id = 1922861 },
-                    new SportsSquadPlayerDTO () { Id = 37625 },
-                    new SportsSquadPlayerDTO () { Id = 1928651 },
+                    new SportsSquadPlayerDTO () { Id = 1907827 },
+                    new SportsSquadPlayerDTO () { Id = 1907827 },
+                    new SportsSquadPlayerDTO () { Id = 1907827 },
+                    new SportsSquadPlayerDTO () { Id = 1907827 },
+
+                    new SportsSquadPlayerDTO () { Id = 1907827 },
+                    new SportsSquadPlayerDTO () { Id = 1907827 },
+                    new SportsSquadPlayerDTO () { Id = 1907827 },
+                    new SportsSquadPlayerDTO () { Id = 1907827 },
+                    new SportsSquadPlayerDTO () { Id = 1907827 },
+                    new SportsSquadPlayerDTO () { Id = 1907827 },
+                    new SportsSquadPlayerDTO () { Id = 1907827 },
+                    new SportsSquadPlayerDTO () { Id = 1884165 },
                     new SportsSquadPlayerDTO () { Id = 1884165 },
                 }
             };
