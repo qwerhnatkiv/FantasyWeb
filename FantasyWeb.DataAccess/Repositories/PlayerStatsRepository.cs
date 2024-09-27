@@ -83,10 +83,10 @@ namespace FantasyWeb.DataAccess.Repositories
                         PPRanks.PP_brigade AS ""FormPowerPlayNumber"",
                         COALESCE(SEASON_PREDS.g, 0) AS ""ForecastGoals"",
                         COALESCE(SEASON_PREDS.a, 0) AS ""ForecastAssists"",
-                        COALESCE(SEASON_PREDS.gp, 0) AS ""ForecastGamesPlayed"",
+                        COALESCE(SEASON_PREDS.gp, COALESCE(GOALIES_PREDS.gp, 0)) AS ""ForecastGamesPlayed"",
                         COALESCE(SEASON_PREDS.plus_minus, 0) AS ""ForecastPlusMinus"",
                         COALESCE(SEASON_PREDS.pim, 0) AS ""ForecastPIM"",
-                        SEASON_PREDS.name_sources AS ""ForecastSources""
+                        COALESCE(SEASON_PREDS.name_sources, GOALIES_PREDS.name_sources) AS ""ForecastSources""
                     FROM
                         RankedPlayerGames AS RPG
                     INNER JOIN nhl2324.d_positions AS POSITION ON POSITION.id = RPG.id_position
@@ -96,6 +96,9 @@ namespace FantasyWeb.DataAccess.Repositories
                     LEFT JOIN nhl2324.f_players_nst AS NST_PLAYER ON RPG.id_player = NST_PLAYER.id_player AND RPG.id_game = NST_PLAYER.id_game
                     LEFT JOIN PPRankings AS PPRanks ON PPRanks.id_player = RPG.id_player
                     LEFT JOIN nhl2324.dm_season_preds_players AS SEASON_PREDS ON RPG.id_player = SEASON_PREDS.id_player
+                    LEFT JOIN nhl2324.v_season_preds_goalkeepers AS GOALIES_PREDS
+                        ON RPG.id_player = GOALIES_PREDS.id_player
+                        AND GOALIES_PREDS.id_season = @idSeason
                     WHERE
                         RPG.game_rank <= @formGamesCount
                     GROUP BY 
@@ -112,6 +115,8 @@ namespace FantasyWeb.DataAccess.Repositories
                         SEASON_PREDS.plus_minus,
                         SEASON_PREDS.pim,
                         SEASON_PREDS.name_sources,
+                        GOALIES_PREDS.gp,
+                        GOALIES_PREDS.name_sources,
                         PPRanks.avg_pp_toi,
                         PPRanks.PP_player_rank,
                         PPRanks.PP_brigade";
