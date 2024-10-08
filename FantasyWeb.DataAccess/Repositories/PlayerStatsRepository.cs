@@ -96,7 +96,7 @@ namespace FantasyWeb.DataAccess.Repositories
                     LEFT JOIN nhl2324.v_season_preds_goalkeepers AS GOALIES_PREDS
                         ON PLAYER.id = GOALIES_PREDS.id_player
                         AND GOALIES_PREDS.id_season = @idSeason
-                    WHERE RPG IS NULL 
+                    WHERE RPG.id_player IS NULL 
                         OR RPG.game_rank <= @formGamesCount
                     AND SPORTS_PLAYER.id_season = @idSeason
                     GROUP BY 
