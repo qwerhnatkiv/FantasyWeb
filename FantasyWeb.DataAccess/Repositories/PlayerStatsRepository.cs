@@ -88,22 +88,26 @@ namespace FantasyWeb.DataAccess.Repositories
                         COALESCE(SEASON_PREDS.plus_minus, 0) AS ""ForecastPlusMinus"",
                         COALESCE(SEASON_PREDS.pim, 0) AS ""ForecastPIM"",
                         COALESCE(SEASON_PREDS.name_sources, GOALIES_PREDS.name_sources) AS ""ForecastSources""
-                    FROM
-                        RankedPlayerGames AS RPG
-                    INNER JOIN nhl2324.d_positions AS POSITION ON POSITION.id = RPG.id_position
-                    INNER JOIN nhl2324.f_players_sports AS SPORTS_PLAYER 
-                        ON RPG.id_player = SPORTS_PLAYER.id_player
-                        AND SPORTS_PLAYER.id_season = @idSeason
-                    LEFT JOIN nhl2324.f_players_nst AS NST_PLAYER ON RPG.id_player = NST_PLAYER.id_player AND RPG.id_game = NST_PLAYER.id_game
-                    LEFT JOIN PPRankings AS PPRanks ON PPRanks.id_player = RPG.id_player
+                    FROM nhl2324.f_players_sports AS SPORTS_PLAYER
+                    INNER JOIN nhl2324.d_players AS PLAYER 
+                        ON SPORTS_PLAYER.id_player = PLAYER.id
+                    INNER JOIN nhl2324.d_positions AS POSITION
+                        ON POSITION.id = PLAYER.id_position
+                    LEFT JOIN RankedPlayerGames AS RPG
+                        ON RPG.id_player = PLAYER.id
+                    LEFT JOIN nhl2324.f_players_nst AS NST_PLAYER
+                        ON RPG.id_player = NST_PLAYER.id_player
+                        AND RPG.id_game = NST_PLAYER.id_game
+                    LEFT JOIN PPRankings AS PPRanks 
+                        ON PPRanks.id_player = RPG.id_player
                     LEFT JOIN nhl2324.dm_season_preds_players AS SEASON_PREDS 
-                        ON RPG.id_player = SEASON_PREDS.id_player
+                        ON PLAYER.id = SEASON_PREDS.id_player
                         AND SEASON_PREDS.id_season = @idSeason
                     LEFT JOIN nhl2324.v_season_preds_goalkeepers AS GOALIES_PREDS
-                        ON RPG.id_player = GOALIES_PREDS.id_player
+                        ON PLAYER.id = GOALIES_PREDS.id_player
                         AND GOALIES_PREDS.id_season = @idSeason
-                    WHERE
-                        RPG.game_rank <= @formGamesCount
+                    WHERE RPG.game_rank <= @formGamesCount
+                    AND SPORTS_PLAYER.id_season = @idSeason
                     GROUP BY 
                         RPG.id_player, 
                         RPG.id_player_sports,
