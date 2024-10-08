@@ -28,16 +28,7 @@ namespace FantasyWeb.DataAccess.Repositories
                         RankedPlayerGames AS (
                         SELECT
                             PLAYER.id AS id_player,
-                            PLAYER.id_player_sports,
                             GAME.id AS id_game,
-                            PLAYER.id_team,
-                            PLAYER.name_sports,
-                            COALESCE
-                            (
-                                PLAYER.name_nst_games,
-                                COALESCE(PLAYER.name_nst_season, PLAYER.name_espn)
-                            ) AS eng_name,
-                            PLAYER.id_position,
                             ROW_NUMBER() OVER 
                             (
                                 PARTITION BY PLAYER.id 
@@ -62,11 +53,10 @@ namespace FantasyWeb.DataAccess.Repositories
                             nhl2324.f_pp_brigades (@idSeason, @formGamesCount)
                         )
                     SELECT
-                        RPG.id_player AS ""PlayerID"",
-                        RPG.id_player_sports AS ""PlayerIdSports"",
-                        COALESCE(RPG.id_team, 0) AS ""TeamID"", 
-                        RPG.name_sports AS ""PlayerName"", 
-                        RPG.eng_name AS ""PlayerNameEng"",
+                        PLAYER.id AS ""PlayerID"",
+                        PLAYER.id_player_sports AS ""PlayerIdSports"",
+                        COALESCE(PLAYER.id_team, 0) AS ""TeamID"", 
+                        PLAYER.name_sports AS ""PlayerName"", 
                         POSITION.short_name AS ""Position"",
                         SPORTS_PLAYER.actual_price AS ""Price"",
                         COUNT(NST_PLAYER.g) AS ""FormGamesPlayed"",
@@ -106,14 +96,14 @@ namespace FantasyWeb.DataAccess.Repositories
                     LEFT JOIN nhl2324.v_season_preds_goalkeepers AS GOALIES_PREDS
                         ON PLAYER.id = GOALIES_PREDS.id_player
                         AND GOALIES_PREDS.id_season = @idSeason
-                    WHERE RPG.game_rank <= @formGamesCount
+                    WHERE RPG IS NULL 
+                        OR RPG.game_rank <= @formGamesCount
                     AND SPORTS_PLAYER.id_season = @idSeason
                     GROUP BY 
-                        RPG.id_player, 
-                        RPG.id_player_sports,
-                        RPG.id_team, 
-                        RPG.name_sports,
-                        RPG.eng_name,
+                        PLAYER.id, 
+                        PLAYER.id_player_sports,
+                        PLAYER.id_team, 
+                        PLAYER.name_sports,
                         SPORTS_PLAYER.actual_price,
                         POSITION.short_name,
                         SEASON_PREDS.g,
