@@ -49,6 +49,7 @@ namespace FantasyWeb.DataAccess.Repositories
                             INNER JOIN nhl2324.d_teams_games AS TG ON TG.id_team = TEAM.id
                             INNER JOIN nhl2324.d_games AS GAME ON TG.id_game = GAME.id
                         WHERE GAME.id_season = @idSeason
+                        AND GAME.game_date < @dateTime
                         ),
                         PPRankings AS (
                         SELECT
@@ -95,7 +96,9 @@ namespace FantasyWeb.DataAccess.Repositories
                         AND SPORTS_PLAYER.id_season = @idSeason
                     LEFT JOIN nhl2324.f_players_nst AS NST_PLAYER ON RPG.id_player = NST_PLAYER.id_player AND RPG.id_game = NST_PLAYER.id_game
                     LEFT JOIN PPRankings AS PPRanks ON PPRanks.id_player = RPG.id_player
-                    LEFT JOIN nhl2324.dm_season_preds_players AS SEASON_PREDS ON RPG.id_player = SEASON_PREDS.id_player
+                    LEFT JOIN nhl2324.dm_season_preds_players AS SEASON_PREDS 
+                        ON RPG.id_player = SEASON_PREDS.id_player
+                        AND SEASON_PREDS.id_season = @idSeason
                     LEFT JOIN nhl2324.v_season_preds_goalkeepers AS GOALIES_PREDS
                         ON RPG.id_player = GOALIES_PREDS.id_player
                         AND GOALIES_PREDS.id_season = @idSeason
