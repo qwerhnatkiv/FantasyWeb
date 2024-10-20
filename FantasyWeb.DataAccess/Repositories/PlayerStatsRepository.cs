@@ -77,7 +77,10 @@ namespace FantasyWeb.DataAccess.Repositories
                         COALESCE(SEASON_PREDS.gp, COALESCE(GOALIES_PREDS.gp, 0)) AS ""ForecastGamesPlayed"",
                         COALESCE(SEASON_PREDS.plus_minus, 0) AS ""ForecastPlusMinus"",
                         COALESCE(SEASON_PREDS.pim, 0) AS ""ForecastPIM"",
-                        COALESCE(SEASON_PREDS.name_sources, GOALIES_PREDS.name_sources) AS ""ForecastSources""
+                        COALESCE(SEASON_PREDS.name_sources, GOALIES_PREDS.name_sources) AS ""ForecastSources"",
+                        COALESCE(SEASON_PREDS.wins, COALESCE(GOALIES_PREDS.wins, 0.0)) AS ""ForecastWins"",
+                        COALESCE(SEASON_PREDS.l, COALESCE(GOALIES_PREDS.l, 0.0)) AS ""ForecastLosses"",
+                        COALESCE(SEASON_PREDS.cs, COALESCE(GOALIES_PREDS.cs, 0.0)) AS ""ForecastShutouts""
                     FROM nhl2324.f_players_sports AS SPORTS_PLAYER
                     INNER JOIN nhl2324.d_players AS PLAYER 
                         ON SPORTS_PLAYER.id_player = PLAYER.id
@@ -113,6 +116,12 @@ namespace FantasyWeb.DataAccess.Repositories
                         SEASON_PREDS.name_sources,
                         GOALIES_PREDS.gp,
                         GOALIES_PREDS.name_sources,
+                        SEASON_PREDS.wins,
+                        SEASON_PREDS.l,
+                        SEASON_PREDS.cs,
+                        GOALIES_PREDS.wins,
+                        GOALIES_PREDS.l,
+                        GOALIES_PREDS.cs,
                         PPRanks.avg_pp_toi,
                         PPRanks.PP_player_rank,
                         PPRanks.PP_brigade";

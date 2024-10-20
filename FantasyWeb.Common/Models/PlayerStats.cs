@@ -25,6 +25,7 @@
         public long FormPlusMinus { get; set; }
 
         public long FormPIM { get; set; }
+
         public double FormPowerPlayTime { get; set; }
 
         public int FormPowerPlayTeamPosition { get; set; }
@@ -52,5 +53,11 @@
         public float? ForecastPlusMinus { get; set; }
 
         public string ForecastSources { get; set; } = string.Empty;
+
+        public float ForecastWins { get; set; }
+
+        public float ForecastLosses { get; set; }
+
+        public float ForecastShutouts { get; set; }
     }
 }
