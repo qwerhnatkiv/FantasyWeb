@@ -56,7 +56,7 @@ namespace FantasyWeb.DataAccess.Repositories
                         PLAYER.id AS ""PlayerID"",
                         PLAYER.id_player_sports AS ""PlayerIdSports"",
                         COALESCE(PLAYER.id_team, 0) AS ""TeamID"", 
-                        PLAYER.name_sports AS ""PlayerName"", 
+                        COALESCE(PLAYER.name_sports_eng, PLAYER.name_nst_games) AS ""PlayerName"", 
                         POSITION.short_name AS ""Position"",
                         SPORTS_PLAYER.actual_price AS ""Price"",
                         COUNT(NST_PLAYER.g) AS ""FormGamesPlayed"",
